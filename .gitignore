@@ -1,4 +1,5 @@
 .idea
 *.md
 *html
+!README.md
 
