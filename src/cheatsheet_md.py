@@ -6,10 +6,11 @@ def list_to_markdown_table(file, list_name):
 
     file.write(f"# {list_name} \n\n")
     command_list = registry.lists[list_name][0].items()
-    file.write(f">\n")
-    file.write(f"> command word  {list_name}   \n\n")
+    # file.write(f">\n")
+    file.write(f"| command word | {list_name}   |\n")
+    file.write("|-----|-----|\n")
     for key, value in command_list:
-        file.write( "> **" + key + "** *" + value + "*\n>\n")
+        file.write( "| **" + key + "** | *" + value + "* |\n")
 
     file.write("\n\n")
 
@@ -58,20 +59,22 @@ def write_formatters(file):
 
     # command_list = dict(command_list)
 
-    file.write("> command word  user.formatters  \n")
+    file.write("| command word | user.formatters  |\n")
+    file.write("|-----|-----|\n")
 #    file.write("|------|-----|\n")
     for key, value in command_list.items():
-        file.write( "> **"+ key + "** `" + actions.user.formatted_text(f"example of formatting with {key}", value) + "` \n>\n")
+        # file.write( "> **"+ key + "** `" + actions.user.formatted_text(f"example of formatting with {key}", value) + "` \n")
+        file.write( "| **"+ key + "** | " + actions.user.formatted_text(f"example of formatting with {key}", value) + " | \n")
 
 def write_context_commands(file, commands): 
     # write out each command and it's implementation
     for key in commands:
         try:
             rule = commands[key].rule.rule
-            implementation = commands[key].target.code.replace("\n","\n\t\t")
+            implementation = commands[key].target.code.replace("\n"," then, \t\t")
         except Exception:
             continue
-        file.write("\n - **" + rule + "**  `" + implementation + "`\n")
+        file.write("| **" + rule + "** | *" + implementation + "* |\n")
 
 def pretty_print_context_name(file, name):
     ## The logic here is intended to only print from talon files that have actual voice commands.  
@@ -97,7 +100,8 @@ def pretty_print_context_name(file, name):
             index = index - 1
             short_name = splits[index].replace("_", " ")
 
-        file.write("\n\n\n" + "# " + os + " " + short_name + "\n\n")
+        file.write("\n\n\n" + "| " + os + " " + short_name + " | " + " | " + "\n")
+        file.write("|----|----|\n")
 
 mod = Module()
 

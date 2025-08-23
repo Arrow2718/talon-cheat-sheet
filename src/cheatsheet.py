@@ -53,28 +53,17 @@ def user_list_to_html_table(file, list_name,sort_by='key',left_pad_value=0):
     # convert this to a two column table
     file.write("<table>\n")
     file.write("<tr><th>Input</th><th>Result</th></tr>\n")
-    rowCount = 0
-    rows_written=0
+  
     for key, value in command_list:
-        rowCount += 1
-        rows_written += 1
-        lines_written += 1
-        if ((rowCount > 4 and key[:2] != previousRule[:2]) and not rows_written==len(command_list)):
-            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
-            rowCount = 0
-        previousRule = key
+        
         file.write(f"<tr class=context><td>{key}</td><td>{value}</td></tr>\n")
+    
     file.write("</table>\n\n")
 
     file.write("\n\n")
 
 def user_list_to_html_table_formatters(file, list_name,sort_by='key'):
     global lines_written
-
-    # from talon import actions
-    # from core.text import formatters
-    #from core.text import formatters  #depends  on source code from https://github.com/talonhub/community
-
 
     command_list = {}
 
@@ -88,31 +77,6 @@ def user_list_to_html_table_formatters(file, list_name,sort_by='key'):
             continue
     print(command_list)
 
-    #sort the commands by the key
-    # command_list = sort_command_list(command_list,sort_by)
-
-
-    # override the command list with a non programmatically generated list as I can't get this working with formatters.Actions.formatted_text(value+" Example", value)
-    # command_list = [
-    #     ('all cap', 'EXAMPLE TEXT'),
-    #     ('all down', 'example text'),
-    #     ('camel', 'exampleText'),
-    #     ('dotted', 'example.text'),
-    #     ('dub string', '"example text"'),
-    #     ('dunder', '__example__text'),
-    #     ('hammer', 'ExampleText'),
-    #     ('kebab', 'example-text'),
-    #     ('packed', 'example::text'),
-    #     ('padded', '[space]example text[space]'),
-    #     ('slasher', '/example/text'),
-    #     ('smash', 'exampletext'),
-    #     ('snake', 'example_text'),
-    #     ('string', '\'example text\''),
-    #     ('sentence', 'Example text'),
-    #     ('title', 'Example Text')
-    # ]
-
-
 
 
     write_page_break_if_needed(file, len(command_list))
@@ -125,23 +89,11 @@ def user_list_to_html_table_formatters(file, list_name,sort_by='key'):
     # convert this to a two column table
     file.write("<table>\n")
     file.write("<tr><th>Input</th><th>Result</th></tr>\n")
-    rowCount = 0
-    rows_written=0
+
     for key, value in command_list.items():
-        rowCount += 1
-        rows_written += 1
-        lines_written += 1
-        if ((rowCount > 4 and key[:2] != previousRule[:2]) and not rows_written==len(command_list)):
-            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
-            rowCount = 0
-        previousRule = key
-
-        #STUCK Here as a can't import formatters  as a module
-        # value=formatters.Actions.formatted_text(value+" Example", value)
-        #will Need to For 'padded' adding &nbsp;  around the value
-
-
+       
         file.write(f"<tr class=context><td>{key}</td><td>{value}</td></tr>\n")
+
     file.write("</table>\n\n")
 
     file.write("\n\n")
@@ -166,17 +118,12 @@ def user_list_to_html_table_alphabet(file, list_name,sort_by='value'):
     # convert this to a two column table
     file.write("<table>\n")
     file.write("<tr><th>Letter</th><th>Word</th></tr>\n")
-    rowCount = 0
-    rows_written=0
+   
+
     for key, value in command_list:
-        rowCount += 1
-        rows_written += 1
-        lines_written += 1
-        if ((rowCount > 4 and value[:2] != previousRule[:2]) and not rows_written==len(command_list)):
-            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
-            rowCount = 0
-        previousRule = value
+        
         file.write(f"<tr class=context><td>{value}</td><td>{key}</td></tr>\n")
+
     file.write("</table>\n\n")
 
     file.write("\n\n")
@@ -218,11 +165,9 @@ def write_context_commands(key, output_file, commands):
     # commands = {k: v for k, v in sorted(commands.items(), key=lambda item: item[1].target.code)}
 
     previousRule= ""
-    rowCount = 0
-    rows_written=0
+    
     for key in commands:
-        rowCount += 1
-        rows_written += 1
+       
         try:
             rule = escapeHtml(commands[key].rule.rule)
             implementation = escapeHtml(commands[key].target.code).replace("\n", "<br />")
@@ -237,14 +182,11 @@ def write_context_commands(key, output_file, commands):
         if len(implementation) > 20:
            implementation = implementation.split('#')[0]
 
-
-        if ((rowCount > 4 and rule[:rowCount] != previousRule[:rowCount]) and not rows_written==len(commands)):
-            output_file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
-            rowCount = 0
-        previousRule = rule
+        # previousRule = rule
         output_file.write(
             f"<tr class=context><td>{rule}</td><td>{implementation}</td></tr>\n")
 
+       
 
         lines_written += 1
 
