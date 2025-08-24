@@ -17,5 +17,6 @@ actions.user.cheatsheet_md()
 ```
 Can easily convert the html to pdf with a browser although I prefer pandoc or weasyprint.
 
-
-
+```
+$TALONHOME\venv\3.13\Scripts\pip.bat install -r user\talon-cheat-sheet\requirements.txt
+```

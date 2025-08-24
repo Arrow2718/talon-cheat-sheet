@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 from talon import Module, actions, registry
-
+from weasyprint import HTML, CSS
 
 
 
@@ -269,6 +269,9 @@ class user_actions:
             f"generating cheat sheet in {os.path.dirname(os.path.realpath(__file__))}"
         )
         this_dir = os.path.dirname(os.path.realpath(__file__))
+
+
+        
         file_path = os.path.join(this_dir, 'cheat_sheet.html')
         file = open(file_path, "w")
         write_html_header(file)
@@ -309,6 +312,23 @@ class user_actions:
         file.write(f"<h1 align=center>End of Talon Cheat Sheet</h1>\n\n")
         file.write("</body></html>")
         file.close()
+
+        
+        this_dir = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(this_dir, 'cheat_sheet.html')
+
+        html = HTML(file_path)
+
+        this_dir = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(this_dir, 'cheatsheet.css')
+        
+        css = CSS(file_path)
+
+        this_dir = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(this_dir, 'cheatsheet.pdf')
+        
+
+        html.write_pdf(file_path, stylesheets=[css])
 
 
 
