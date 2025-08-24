@@ -78,7 +78,6 @@ def write_formatters(file):
 def write_context_commands(file, commands):
     # write out each command and it's implementation
 
-    file.write("# ")
     for key in commands:
         try:
             rule = commands[key].rule.rule
@@ -123,7 +122,7 @@ mod = Module()
 
 @mod.action_class
 class user_actions:
-    def cheatsheet_md():
+    def cheatsheet_md(self):
         """Print out a sheet of talon commands"""
         # open file
 
@@ -133,75 +132,35 @@ class user_actions:
 
         os.makedirs(chunk_dir_path, exist_ok=True)
 
-        chunk_path = os.path.join(chunk_dir_path, "alphabet.md")
+        chunk_path = os.path.join(chunk_dir_path, "Talon Basic Commands.md")
 
         chunk = open(chunk_path, "w")
 
         write_alphabet(chunk)
 
-        
 
-        chunk.close()
 
-        chunk_path = os.path.join(chunk_dir_path, "numbers.md")
-
-        chunk = open(chunk_path, "w")
 
         write_numbers(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "modifiers.md")
-
-        chunk = open(chunk_path, "w")
 
         write_modifiers(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "special.md")
-
-        chunk = open(chunk_path, "w")
 
         write_special(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "symbol.md")
-
-        chunk = open(chunk_path, "w")
 
         write_symbol(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "arrow.md")
-
-        chunk = open(chunk_path, "w")
 
         write_arrow(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "punctuation.md")
-
-        chunk = open(chunk_path, "w")
 
         write_punctuation(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "function.md")
-
-        chunk = open(chunk_path, "w")
 
         write_function(chunk)
 
-        chunk.close()
-
-        chunk_path = os.path.join(chunk_dir_path, "formatters.md")
-
-        chunk = open(chunk_path, "w")
 
         write_formatters(chunk)
 
@@ -214,11 +173,14 @@ class user_actions:
             commands = value.commands  # Get all the commands from a context
 
             if len(commands) > 0:
-                chunk_path = os.path.join(chunk_dir_path, f"{key}.md")
+                chunk_path = os.path.join(chunk_dir_path, f"{".".join( key.split(".")[:2] )}.md")
 
-                chunk = open(chunk_path, "w")
+
+                chunk = open(chunk_path, "a")
 
                 pretty_print_context_name(chunk, key)
                 write_context_commands(chunk, commands)
+
+                chunk.write("\n\n")
 
                 chunk.close()
