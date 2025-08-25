@@ -1,6 +1,10 @@
 from talon import Module, actions, registry
 import sys, os
 import pypandoc
+from weasyprint import css
+
+
+
 
 def list_to_markdown_table(file, list_name):
     file.write(f"# {list_name} \n\n")
@@ -122,23 +126,29 @@ mod = Module()
 
 @mod.action_class
 class user_actions:
-    def cheatsheet_md(self):
+    def cheatsheet_md():
         """Print out a sheet of talon commands"""
         # open file
 
         this_dir = os.path.dirname(os.path.realpath(__file__))
+        css_path = os.path.join(this_dir, "cheatsheet.css")
+        template_path = os.path.join(this_dir, "template.html")
+
 
         chunk_dir_path = os.path.join(this_dir, "cheatsheet-chunked")
 
-        os.makedirs(chunk_dir_path, exist_ok=True)
+
+
+        os.makedirs(chunk_dir_path, exist_ok= True)
+
+
+
 
         chunk_path = os.path.join(chunk_dir_path, "Talon Basic Commands.md")
 
         chunk = open(chunk_path, "w")
 
         write_alphabet(chunk)
-
-
 
 
         write_numbers(chunk)
@@ -169,18 +179,61 @@ class user_actions:
         # print out all the commands in all of the contexts
 
         list_of_contexts = registry.contexts.items()
+
+        command_set_dict = {}
+
         for key, value in list_of_contexts:
             commands = value.commands  # Get all the commands from a context
 
             if len(commands) > 0:
-                chunk_path = os.path.join(chunk_dir_path, f"{".".join( key.split(".")[:2] )}.md")
+                command_set= key.split(".")[1]
+
+                if command_set not in list(command_set_dict.keys()):
+
+                    command_set_dict[command_set] = {}
+                    command_set_dict[command_set][key] = commands
+                else:
+
+                    command_set_dict[command_set][key] = commands
 
 
-                chunk = open(chunk_path, "a")
+        for (set_name, set) in command_set_dict.items():
 
-                pretty_print_context_name(chunk, key)
+            chunk_path = os.path.join(chunk_dir_path, f"{set_name} commands.md")
+
+            chunk = open(chunk_path, "w")
+
+            for context, commands in set.items():
+
+                pretty_print_context_name(chunk, context)
                 write_context_commands(chunk, commands)
 
                 chunk.write("\n\n")
 
-                chunk.close()
+            chunk.close()
+
+
+        # for key, value in list_of_contexts:
+        #     commands = value.commands  # Get all the commands from a context
+
+        #     if len(commands) > 0:
+        #         chunk_path = os.path.join(chunk_dir_path, f"{key.split(".")[1]} Commands.md")
+
+
+        #         chunk = open(chunk_path, "a")
+
+        #         pretty_print_context_name(chunk, key)
+        #         write_context_commands(chunk, commands)
+
+        #         chunk.write("\n\n")
+
+        #         chunk.close()
+
+        cheatsheets = os.listdir(chunk_dir_path)
+
+
+
+        for sheet in cheatsheets:
+
+            if sheet.endswith("md"):
+                pypandoc.convert_file(os.path.join(chunk_dir_path,sheet), 'html', outputfile=os.path.join(chunk_dir_path,f"{sheet.split(".")[0]}.html"), extra_args=[f"--template={template_path}", f"--css={css_path}"])

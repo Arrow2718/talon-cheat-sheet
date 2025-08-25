@@ -1,5 +1,5 @@
 body {
-
+    column-count: 2;
 
 }
 
@@ -42,9 +42,10 @@ table.contexts th {
     background-color: darkgreen;
     color: white;
 }
+
 h1 {
- max-width:80%;
-line-height: 2em;
+    max-width: 80%;
+    line-height: 2em;
     vertical-align: middle;
     padding-left: 1cm;
     padding-top: .2cm;
@@ -52,22 +53,31 @@ line-height: 2em;
     font-size: .9em;
     /*width:60%;*/
     background-color: #fff;
- border-radius:5px;
- border-top: 1px solid #eee;
- border-left: 1px solid #eee;
- border-right: 1px solid #aaa;
- border-bottom: 1px solid #aaa;
- page-break-before: always;
- font-size:1.5em;
- }
- h2 {
- max-width:80%;
- line-height:2em; vertical-align: middle;padding-left:1cm; padding-top:.2cm; padding-bottom:.2cm;font-size:.9em; margin-left:-1.5cm;/*width:60%;*/ background-color:#fff;
- border-radius:5px;
- border-top: 1px solid #eee;
- border-left: 1px solid #eee;
- border-right: 1px solid #aaa;
- border-bottom: 1px solid #aaa;
- page-break-before: always;
- font-size:1.5em;
- }
+    border-radius: 5px;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    page-break-before: always;
+    font-size: 1.5em;
+}
+
+h2 {
+    max-width: 80%;
+    line-height: 2em;
+    vertical-align: middle;
+    padding-left: 1cm;
+    padding-top: .2cm;
+    padding-bottom: .2cm;
+    font-size: .9em;
+    margin-left: -1.5cm;
+    /*width:60%;*/
+    background-color: #fff;
+    border-radius: 5px;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    page-break-before: always;
+    font-size: 1.5em;
+}
