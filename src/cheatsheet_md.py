@@ -7,7 +7,7 @@ from weasyprint import css
 
 
 def list_to_markdown_table(file, list_name):
-    file.write(f"# {list_name} \n\n")
+    file.write(f"## {list_name} \n\n")
     command_list = registry.lists[list_name][0].items()
     # file.write(f">\n")
     file.write(f"| command word | {list_name}   |\n")
@@ -51,7 +51,7 @@ def write_function(file):
 
 
 def write_formatters(file):
-    file.write(f"# formatters \n\n")
+    file.write(f"## formatters \n\n")
     # command_list = registry.lists['user.formatters'][0].items()
     command_list = {}
 
@@ -115,7 +115,7 @@ def pretty_print_context_name(file, name):
         index = index - 1
         short_name = splits[index].replace("_", " ")
 
-    file.write(f"#  {name}")
+    file.write(f"##  {name}")
 
     file.write("\n\n\n" + "| command word | " + os + " " + short_name + " |"  + "\n")
     file.write("|----|----|\n")
@@ -203,6 +203,9 @@ class user_actions:
 
             chunk = open(chunk_path, "w")
 
+            chunk.write(f"---\ntitle: '{set_name} Command Set' \n\n---\n\n")
+
+
             for context, commands in set.items():
 
                 pretty_print_context_name(chunk, context)
@@ -236,4 +239,4 @@ class user_actions:
         for sheet in cheatsheets:
 
             if sheet.endswith("md"):
-                pypandoc.convert_file(os.path.join(chunk_dir_path,sheet), 'html', outputfile=os.path.join(chunk_dir_path,f"{sheet.split(".")[0]}.html"), extra_args=[f"--template={template_path}", f"--css={css_path}"])
+                pypandoc.convert_file(os.path.join(chunk_dir_path,sheet), 'html5', format= "markdown-smart", outputfile=os.path.join(chunk_dir_path,f"{sheet.split(".")[0]}.html"), extra_args=[f"--template={template_path}", f"--css={css_path}"])
