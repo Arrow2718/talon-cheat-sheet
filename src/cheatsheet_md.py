@@ -115,9 +115,9 @@ def pretty_print_context_name(file, name):
         index = index - 1
         short_name = splits[index].replace("_", " ")
 
-    file.write(f"##  {name}")
+    file.write(f"## {short_name}")
 
-    file.write("\n\n\n" + "| command word | " + os + " " + short_name + " |"  + "\n")
+    file.write("\n\n\n" + "| command word | " + os + " " + "method/actions" + " |"  + "\n")
     file.write("|----|----|\n")
 
 
