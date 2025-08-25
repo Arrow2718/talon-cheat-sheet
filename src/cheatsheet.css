@@ -1,26 +1,56 @@
 body {
     column-count: 2;
+    column-width: auto;
+        word-wrap: break-word;
+        /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+        overflow-wrap: break-word;
+        /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+        white-space: normal;
 
 }
 
 table {
+    table-layout: fixed;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-size: 8pt;
+        word-wrap: break-word;
+        /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+        overflow-wrap: break-word;
+        /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+        white-space: normal;
 }
 
 td,
 th {
     border: 1px solid #ddd;
     padding: 8px;
+    word-wrap: break-word;
+        /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+        overflow-wrap: break-;
+        /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+        white-space: normal;
+        max-width: 100px;
+        font-size: xx-small;
 }
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
+word-wrap: break-word;
+    /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+    overflow-wrap: break-word;
+    /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+    white-space: normal;
 }
 
 tr:hover {
     background-color: #ddd;
+word-wrap: break-word;
+    /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+    overflow-wrap: break-word;
+    /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+    white-space: normal;
 }
 
 th {
@@ -29,6 +59,11 @@ th {
     text-align: left;
     background-color: #04AA6D;
     color: white;
+word-wrap: break-word;
+    /* Allow long words or URLs to be broken and wrapped onto multiple lines */
+    overflow-wrap: break-word;
+    /* Alias for word-wrap; allows long words or URLs to be broken and wrapped onto multiple lines */
+    white-space: normal;
 }
 h1 {
 max-width: 80%;
@@ -63,6 +98,6 @@ font-size: 1.5em;
     border-left: 1px solid #eee;
     border-right: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
-    page-break-before: always;
+
 font-size: 1.5em;
 }

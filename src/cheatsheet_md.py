@@ -1,8 +1,7 @@
 from talon import Module, actions, registry
 import sys, os
 import pypandoc
-from weasyprint import css
-
+from weasyprint import HTML, CSS
 
 
 
@@ -132,6 +131,7 @@ class user_actions:
 
         this_dir = os.path.dirname(os.path.realpath(__file__))
         css_path = os.path.join(this_dir, "cheatsheet.css")
+        css_pdf_path = os.path.join(this_dir, "cheatsheet-pdf.css")
         template_path = os.path.join(this_dir, "template.html")
 
 
@@ -234,9 +234,10 @@ class user_actions:
 
         cheatsheets = os.listdir(chunk_dir_path)
 
-
+        css = CSS(css_pdf_path)
 
         for sheet in cheatsheets:
 
             if sheet.endswith("md"):
                 pypandoc.convert_file(os.path.join(chunk_dir_path,sheet), 'html5', format= "markdown-smart", outputfile=os.path.join(chunk_dir_path,f"{sheet.split(".")[0]}.html"), extra_args=[f"--template={template_path}", f"--css={css_path}"])
+                pypandoc.convert_file(os.path.join(chunk_dir_path,sheet), 'html5', format= "markdown-smart", outputfile=os.path.join(chunk_dir_path,f"{sheet.split(".")[0]}.pdf"), extra_args=[f"--template={template_path}", f"--css={css_path}"])
